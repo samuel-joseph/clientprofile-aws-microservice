@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   db.Client.create({
     username: req.body.username,
     password: req.body.password,
   }).then((newClient) => res.send(newClient));
 });
 
-router.get("/all", (req, res) => {
+router.get("/", (req, res) => {
   db.Client.findAll({
     include: [db.UserProfile, db.PersonalFund],
   }).then((allClient) => res.send(allClient));
@@ -22,13 +22,13 @@ router.get("/:id", (req, res) => {
   }).then((allClient) => res.send(allClient));
 });
 
-router.delete("/remove/:clientId", (req, res) => {
+router.delete("/:clientId", (req, res) => {
   db.Client.destroy({
     where: { id: req.params.clientId },
   }).then((allClient) => console.log("REMOVED"));
 });
 
-router.put("/edit/:clientId", (req, res) => {
+router.put("/:clientId", (req, res) => {
   db.Client.update(
     {
       username: req.body.username,

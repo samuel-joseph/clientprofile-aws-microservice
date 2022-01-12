@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-router.get("/find/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   db.UserProfile.findAll({
     where: {
       ClientId: req.params.id,
@@ -11,7 +11,7 @@ router.get("/find/:id", (req, res) => {
   }).then((chosenProfile) => res.send(chosenProfile));
 });
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   db.UserProfile.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -22,7 +22,7 @@ router.post("/new", (req, res) => {
   }).then((postProfile) => res.send(postProfile));
 });
 
-router.put("/edit/:clientID", (req, res) => {
+router.put("/:clientID", (req, res) => {
   db.UserProfile.update(
     {
       firstName: req.body.firstName,

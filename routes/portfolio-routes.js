@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-router.post("/new", (req, res) => {
+router.post("/", (req, res) => {
   db.PersonalFund.create({
     fundKey: req.body.fundKey,
     ClientId: req.body.ClientId,
@@ -16,14 +16,22 @@ router.get("/:id", (req, res) => {
   }).then((data) => res.send(data));
 });
 
-router.delete("/remove/:clientId/:portfolioId", (req, res) => {
+router.get("/:clientId/:id", (req, res) => {
+  db.PersonalFund.findAll({
+    where: { 
+      ClientId: req.params.clientId,
+      id:req.params.id },
+  }).then((data) => res.send(data));
+});
+
+router.delete("/:clientId/:id", (req, res) => {
   db.PersonalFund.destroy({
     where: {
       ClientId: req.params.clientId,
-      id: req.params.portfolioId,
+      id: req.params.id,
     },
   }).then((data) =>
-    console.log(`Portfolio id num ${req.params.portfolioId} removed!`)
+    console.log(`Portfolio id num ${req.params.id} removed!`)
   );
 });
 
