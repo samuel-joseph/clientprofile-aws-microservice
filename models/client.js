@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-  const Client = sequelize.define("Client", {
+  const user = sequelize.define("user", {
     username: {
       type: DataType.STRING,
       allowNull: false,
@@ -10,14 +10,14 @@ module.exports = (sequelize, DataType) => {
     },
   });
 
-  Client.associate = (models) => {
-    Client.hasMany(models.PersonalFund, {
+  user.associate = (models) => {
+    user.hasMany(models.portfolio, {
       onDelete: "cascade",
     });
-    Client.hasOne(models.UserProfile, {
+    user.hasOne(models.profile, {
       onDelete: "cascade",
     });
   };
 
-  return Client;
+  return user;
 };

@@ -1,18 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const PersonalFund = sequelize.define("PersonalFund", {
+  const portfolio = sequelize.define("portfolio", {
     fundKey: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });
 
-  PersonalFund.associate = (models) => {
-    PersonalFund.belongsTo(models.Client, {
+  portfolio.associate = (models) => {
+    portfolio.belongsTo(models.user, {
       foreignKey: {
         allowNull: false,
       },
     });
   };
 
-  return PersonalFund;
+  return portfolio;
 };
