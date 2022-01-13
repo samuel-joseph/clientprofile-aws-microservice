@@ -18,17 +18,17 @@ models
 - contains all models that defines every field
 - contents
   - client.js
-    - defines the Model Client (username,password)
-    - defines the association of Client (hasMany PersonalFund, hasOne UserProfile)
+    - defines the Model Customer (user_id)
+    - defines the association of Client (hasMany CustomerPortfolio, hasOne CustomerProfile)
   - index.js
     - wraps all the models into one Object db
     - module.exports = db
   - portfolio.js
-    - defines Model PersonalFund (fundKey)
-    - defines the association of PersonalFund (belongsTo Client)
+    - defines Model CustomerPortfolio (fundKey)
+    - defines the association of CustomerPortfolio (belongsTo Customer)
   - profile.js
-    - defines Model UserProfile (firstName, lastName, email, birthdate, age)
-    - defines the association of UserProfile (belongsTo Client)
+    - defines Model CustomerProfile (firstName, lastName, email, birthdate, age)
+    - defines the association of CustomerProfile (belongsTo Customer)
 
 - node_modules
 
@@ -48,24 +48,24 @@ models
 CLIENT
   - ./routes/client-routes.js
 
-  - http://localhost:3000/user
+  /customer
     - a POST method
     - creates a new user
 
-  - http://localhost:3000/user
+  /customer
     - a GET method
     - returns all the users field
 
-  - http://localhost:3000/:id
+  /customer/:id
     - a GET method
     - returns a specific user according to his id
     - returns user, Profile and Portfolio
 
-  - http://localhost:3000/user/:id
+  /customer/:id
     - a DELETE method
     - deletes a specific user according to his id
 
-  - http://localhost:3000/user/:id
+  /customer/:id
     - a PUT method
     - Updates the users properties according to the body that's been given by the user
 
@@ -73,20 +73,20 @@ CLIENT
 PORTFOLIO
   - ./routes/portfolio-routes.js
 
-  - http://localhost:3000/portfolio
+  /portfolio
     - a POST method
     - creates a new portfolio 
     - contains only fundKey property which references the mutual fund microservice fund id.
 
-  - http://localhost:3000/portfolio/:id
+  /portfolio/:id
     - a GET method
     - returns all the portfolios field of user :id
 
-  - http://localhost:3000/portfolio/:clientId/:id
+  /portfolio/:customer/:id
     - a GET method
     - returns a one portfolio of client :clientId targeting specific portfolio :id
 
-  - http://localhost:3000/portfolio/:clientId/:id
+  /portfolio/:customerId/:id
     - a DELETE method
     - deletes one portfolio of client :clientId targeting speicif porfolio :id
 
@@ -94,7 +94,7 @@ PORTFOLIO
 PROFILE
   - ./routes/profile-routes.js
 
-  - http://localhost:3000/profile
+  /profile
     - a POST method
     - creates a new profile 
     - contains  
@@ -105,11 +105,11 @@ PROFILE
       - age
       - ClientId (which has to reference the id of Client)
 
-  - http://localhost:3000/profile/:idd
+  /profile/:id
     - a GET method
     - the req.params.id should reference the "Client ID" and not the profile id
     - also returns the Client field
 
-  - http://localhost:3000/profile/:clientID
+  /profile/:id
     - a PUT method
     - Updates the clients profile according to the body that's been given by the user
