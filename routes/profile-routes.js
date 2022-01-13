@@ -3,27 +3,27 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/:id", (req, res) => {
-  db.profile.findAll({
+  db.CustomerProfile.findAll({
     where: {
-      userId: req.params.id,
+      CustomerId: req.params.id,
     },
-    include: [db.user],
+    include: [db.Customer],
   }).then((chosenProfile) => res.send(chosenProfile));
 });
 
 router.post("/", (req, res) => {
-  db.profile.create({
+  db.CustomerProfile.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     birthdate: req.body.birthdate,
     age: req.body.age,
-    userId: req.body.userId,
+    CustomerId: req.body.CustomerId,
   }).then((postProfile) => res.send(postProfile));
 });
 
-router.put("/:userId", (req, res) => {
-  db.profile.update(
+router.put("/:CustomerId", (req, res) => {
+  db.CustomerProfile.update(
     {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -31,7 +31,7 @@ router.put("/:userId", (req, res) => {
       birthdate: req.body.birthdate,
       age: req.body.age,
     },
-    { where: { userId: req.params.userId } }
+    { where: { CustomerId: req.params.CustomerId } }
   ).then((updated) => res.send(updated));
 });
 

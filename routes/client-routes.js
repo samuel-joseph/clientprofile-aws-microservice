@@ -3,43 +3,48 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
-  db.user.create({
-    username: req.body.username,
-    password: req.body.password,
+  db.Customer.create({
+    customer_id: req.body.customer_id,
   }).then((newClient) => res.send(newClient));
 });
 
 router.get("/", (req, res) => {
-  db.user.findAll({
-    include: [db.profile, db.portfolio],
+  db.Customer.findAll({
+    include: [db.CustomerProfile, db.CustomerPortfolio],
   }).then((allClient) => res.send(allClient));
 });
 
 router.get("/:id", (req, res) => {
-  db.user.findOne({
-    where: { id: req.params.id },
-    include: [db.profile, db.portfolio],
-  }).then((allClient) => res.send(allClient));
+  db.customer
+    .findOne({
+      where: { id: req.params.id },
+      include: [db.profile, db.portfolio],
+    })
+    .then((allClient) => res.send(allClient));
 });
 
-router.delete("/:clientId", (req, res) => {
-  db.user.destroy({
-    where: { id: req.params.clientId },
-  }).then((allClient) => console.log("REMOVED"));
+router.delete("/:id", (req, res) => {
+  db.customer
+    .destroy({
+      where: { id: req.params.id },
+    })
+    .then((allClient) => console.log("REMOVED"));
 });
 
-router.put("/:clientId", (req, res) => {
-  db.user.update(
-    {
-      username: req.body.username,
-      password: req.body.password,
-    },
-    {
-      where: { id: req.params.clientId },
-    }
-  ).then((allClient) =>
-    console.log(`Client number ${req.params.clientId} updated!`)
-  );
+router.put("/:id", (req, res) => {
+  db.customer
+    .update(
+      {
+        username: req.body.username,
+        password: req.body.password,
+      },
+      {
+        where: { id: req.params.id },
+      }
+    )
+    .then((allClient) =>
+      console.log(`Client number ${req.params.clientId} updated!`)
+    );
 });
 
 module.exports = router;

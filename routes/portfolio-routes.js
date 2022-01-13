@@ -3,36 +3,35 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
-  db.portfolio.create({
+  db.CustomerPortfolio.create({
     fundKey: req.body.fundKey,
-    userId: req.body.userId,
+    CustomerId: req.body.CustomerId,
   }).then((userPost) => res.send(userPost));
 });
 
 router.get("/:id", (req, res) => {
-  db.portfolio.findAll({
-    where: { userId: req.params.id },
-    include: [db.user],
+  db.CustomerPortfolio.findAll({
+    where: { CustomerId: req.params.id },
+    include: [db.Customer],
   }).then((data) => res.send(data));
 });
 
-router.get("/:userId/:id", (req, res) => {
-  db.portfolio.findAll({
-    where: { 
-      userId: req.params.userId,
-      id:req.params.id },
-  }).then((data) => res.send(data));
-});
-
-router.delete("/:userId/:id", (req, res) => {
-  db.portfolio.destroy({
+router.get("/:CustomerId/:id", (req, res) => {
+  db.CustomerPortfolio.findAll({
     where: {
-      userId: req.params.userId,
+      CustomerId: req.params.CustomerId,
       id: req.params.id,
     },
-  }).then((data) =>
-    console.log(`Portfolio id num ${req.params.id} removed!`)
-  );
+  }).then((data) => res.send(data));
+});
+
+router.delete("/:CustomerId/:id", (req, res) => {
+  db.CustomerPortfolio.destroy({
+    where: {
+      CustomerId: req.params.CustomerId,
+      id: req.params.id,
+    },
+  }).then((data) => console.log(`Portfolio id num ${req.params.id} removed!`));
 });
 
 module.exports = router;

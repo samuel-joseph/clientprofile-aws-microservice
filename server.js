@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const clientRoutes = require("./routes/client-routes");
-app.use("/client", clientRoutes);
+app.use("/customer", clientRoutes);
 
 const profileRoutes = require("./routes/profile-routes");
 app.use("/profile", profileRoutes);

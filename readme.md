@@ -48,26 +48,26 @@ models
 CLIENT
   - ./routes/client-routes.js
 
-  - http://localhost:3000/client
+  - http://localhost:3000/user
     - a POST method
-    - creates a new client
+    - creates a new user
 
-  - http://localhost:3000/client
+  - http://localhost:3000/user
     - a GET method
-    - returns all the clients field
+    - returns all the users field
 
   - http://localhost:3000/:id
     - a GET method
-    - returns a specific client according to his id
-    - returns Client, Profile and Portfolio
+    - returns a specific user according to his id
+    - returns user, Profile and Portfolio
 
-  - http://localhost:3000/client/:id
+  - http://localhost:3000/user/:id
     - a DELETE method
-    - deletes a specific client according to his id
+    - deletes a specific user according to his id
 
-  - http://localhost:3000/client/:id
+  - http://localhost:3000/user/:id
     - a PUT method
-    - Updates the clients properties according to the body that's been given by the user
+    - Updates the users properties according to the body that's been given by the user
 
 
 PORTFOLIO
@@ -105,7 +105,7 @@ PROFILE
       - age
       - ClientId (which has to reference the id of Client)
 
-  - http://localhost:3000/profile/:id
+  - http://localhost:3000/profile/:idd
     - a GET method
     - the req.params.id should reference the "Client ID" and not the profile id
     - also returns the Client field

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const profile = sequelize.define("profile", {
+  const profile = sequelize.define("CustomerProfile", {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   profile.associate = (models) => {
-    profile.belongsTo(models.user, {
+    profile.belongsTo(models.Customer, {
       foreignKey: {
         allowNull: false,
       },

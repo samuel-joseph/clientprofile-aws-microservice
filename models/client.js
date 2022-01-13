@@ -1,23 +1,19 @@
 module.exports = (sequelize, DataType) => {
-  const user = sequelize.define("user", {
-    username: {
-      type: DataType.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataType.STRING,
+  const Customer = sequelize.define("Customer", {
+    customer_id: {
+      type: DataType.INTEGER,
       allowNull: false,
     },
   });
 
-  user.associate = (models) => {
-    user.hasMany(models.portfolio, {
+  Customer.associate = (models) => {
+    Customer.hasMany(models.CustomerPortfolio, {
       onDelete: "cascade",
     });
-    user.hasOne(models.profile, {
+    Customer.hasOne(models.CustomerProfile, {
       onDelete: "cascade",
     });
   };
 
-  return user;
+  return Customer;
 };
