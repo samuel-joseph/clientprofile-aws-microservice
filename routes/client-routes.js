@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   db.customer
-    .findOne({
+    .findAll({
       where: { id: req.params.id },
       include: [db.profile, db.portfolio],
     })
