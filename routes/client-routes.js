@@ -15,36 +15,30 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  db.customer
-    .findAll({
-      where: { id: req.params.id },
-      include: [db.profile, db.portfolio],
-    })
-    .then((allClient) => res.send(allClient));
+  db.Customer.findOne({
+    where: { id: req.params.id },
+    include: [db.profile, db.portfolio],
+  }).then((allClient) => res.send(allClient));
 });
 
 router.delete("/:id", (req, res) => {
-  db.customer
-    .destroy({
-      where: { id: req.params.id },
-    })
-    .then((allClient) => console.log("REMOVED"));
+  db.Customer.destroy({
+    where: { id: req.params.id },
+  }).then((allClient) => console.log("REMOVED"));
 });
 
 router.put("/:id", (req, res) => {
-  db.customer
-    .update(
-      {
-        username: req.body.username,
-        password: req.body.password,
-      },
-      {
-        where: { id: req.params.id },
-      }
-    )
-    .then((allClient) =>
-      console.log(`Client number ${req.params.clientId} updated!`)
-    );
+  db.Customer.update(
+    {
+      username: req.body.username,
+      password: req.body.password,
+    },
+    {
+      where: { id: req.params.id },
+    }
+  ).then((allClient) =>
+    console.log(`Client number ${req.params.clientId} updated!`)
+  );
 });
 
 module.exports = router;
