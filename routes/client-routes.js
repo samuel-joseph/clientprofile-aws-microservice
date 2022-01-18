@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   db.Customer.findOne({
     where: { id: req.params.id },
-    include: [db.profile, db.portfolio],
+    include: [db.CustomerProfile, db.CustomerPortfolio],
   }).then((allClient) => res.send(allClient));
 });
 
@@ -25,20 +25,6 @@ router.delete("/:id", (req, res) => {
   db.Customer.destroy({
     where: { id: req.params.id },
   }).then((allClient) => console.log("REMOVED"));
-});
-
-router.put("/:id", (req, res) => {
-  db.Customer.update(
-    {
-      username: req.body.username,
-      password: req.body.password,
-    },
-    {
-      where: { id: req.params.id },
-    }
-  ).then((allClient) =>
-    console.log(`Client number ${req.params.clientId} updated!`)
-  );
 });
 
 module.exports = router;
