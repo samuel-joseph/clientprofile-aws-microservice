@@ -19,6 +19,7 @@ router.get("/fundkey/:CustomerId/:fundKey", (req, res) => {
     },
   }).then((portfolio) => {
     console.log(portfolio);
+    res.send(portfolio);
   });
 });
 
