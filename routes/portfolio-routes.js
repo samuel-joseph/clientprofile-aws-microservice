@@ -20,7 +20,7 @@ router.get("/fundkey/:CustomerId/:fundKey", (req, res) => {
   }).then((portfolio) => {
     console.log("The response ", portfolio);
     console.log("The length ", portfolio.length);
-    res.send(portfolio);
+    res.send(portfolio.length);
   });
 });
 
