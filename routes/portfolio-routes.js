@@ -1,4 +1,5 @@
 const express = require("express");
+const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
@@ -7,6 +8,18 @@ router.post("/", (req, res) => {
     fundKey: req.body.fundKey,
     CustomerId: req.body.CustomerId,
   }).then((userPost) => res.send(userPost));
+});
+
+//check if fund exist
+router.get("/:CustomerId/:fundKey", (req, res) => {
+  db.CustomerPortfolio.findAll({
+    where: {
+      fundKey: req.params.fundKey,
+      CustomerId: req.params.CustomerId,
+    },
+  }).then((portfolio) => {
+    console.log(portfolio);
+  });
 });
 
 router.get("/:id", (req, res) => {
