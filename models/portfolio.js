@@ -4,10 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    quantity: {
-      type: DataTypes.INTEGER,
-    },
   });
+
+  CustomerPortfolio.quantity = 1;
 
   CustomerPortfolio.associate = (models) => {
     CustomerPortfolio.belongsTo(models.Customer, {
