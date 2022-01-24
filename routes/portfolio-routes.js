@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
 });
 
 //check if fund exist
-router.get("/:CustomerId/:fundKey", (req, res) => {
+router.get("/fundkey/:CustomerId/:fundKey", (req, res) => {
   db.CustomerPortfolio.findAll({
     where: {
       fundKey: req.params.fundKey,
