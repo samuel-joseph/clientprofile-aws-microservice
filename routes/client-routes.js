@@ -2,13 +2,17 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
+export const getTransactions = async (req, res) => {
+  let transactions = await Transaction.findAll({});
+  res.json(transactions);
+};
+
 router.post("/", (req, res) => {
-  const clientCheck = async () => {
-    return await db.Client.findOne({
-      where: {
-        customer_id: req.body.customer_id,
-      },
-    }).then((data) => res.send(data));
+  export const clientCheck = async () => {
+    let customerId = await db.Client.findOne({
+      where: { customer_id: req.body.customer_id },
+    });
+    res.json(customerId);
   };
 
   console.log("What is ", clientCheck());
