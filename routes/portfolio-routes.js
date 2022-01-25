@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
     if (fundExist == null) {
       db.ClientPortfolio.create({
         fundKey: req.body.fundKey,
-        CustomerId: req.body.CustomerId,
+        ClientId: req.body.ClientId,
         quantity: 1,
       }).then((userPost) => res.send(userPost));
     } else {
