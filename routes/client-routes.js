@@ -9,17 +9,17 @@ router.post("/", (req, res) => {
     });
 
     console.log("This is customerId ", customerId);
-    return customerId;
+
+    if (customerId == null) {
+      db.Client.create({
+        customer_id: req.body.customer_id,
+      }).then((newClient) => res.send(newClient));
+    } else {
+      res.send("Customer id already exist!");
+    }
   };
 
-  console.log("What is ", clientCheck());
-  if (clientCheck()) {
-    res.send("Customer id already exist!");
-  } else {
-    db.Client.create({
-      customer_id: req.body.customer_id,
-    }).then((newClient) => res.send(newClient));
-  }
+  clientCheck();
 });
 
 router.get("/", (req, res) => {
