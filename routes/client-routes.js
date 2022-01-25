@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   db.Client.findOne({
-    where: { id: req.params.id },
+    where: { customer_id: req.params.customer_id },
     include: [db.ClientProfile, db.ClientPortfolio],
   }).then((allClient) => res.send(allClient));
 });
