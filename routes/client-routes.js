@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
       where: {
         customer_id: req.body.customer_id,
       },
-    }).then((data) => res.json(data));
+    }).then((data) => res.send(data));
   };
 
   console.log("What is ", clientCheck());
