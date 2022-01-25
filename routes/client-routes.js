@@ -11,8 +11,8 @@ router.post("/", (req, res) => {
     });
   };
 
-  console.log("What is ", clientCheck);
-  if (clientCheck) {
+  console.log("What is ", clientCheck());
+  if (clientCheck()) {
     res.send("Customer id already exist!");
   } else {
     db.Client.create({
