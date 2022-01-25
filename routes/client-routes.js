@@ -7,6 +7,8 @@ router.post("/", (req, res) => {
     let customerId = await db.Client.findOne({
       where: { customer_id: req.body.customer_id },
     });
+
+    console.log(customerId);
     res.json(customerId);
   };
 
