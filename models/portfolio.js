@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  // const CustomerPortfolio = sequelize.define("CustomerPortfolio", {
-  const CustomerPortfolio = sequelize.define("portfolio", {
+  const ClientPortfolio = sequelize.define("ClientPortfolio", {
     fundKey: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -11,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  CustomerPortfolio.associate = (models) => {
-    CustomerPortfolio.belongsTo(models.Customer, {
+  ClientPortfolio.associate = (models) => {
+    ClientPortfolio.belongsTo(models.Client, {
       foreignKey: {
         allowNull: false,
       },
     });
   };
 
-  return CustomerPortfolio;
+  return ClientPortfolio;
 };
