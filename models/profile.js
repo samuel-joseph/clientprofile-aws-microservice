@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const profile = sequelize.define("CustomerProfile", {
+  // const profile = sequelize.define("CustomerProfile", {
+  const profile = sequelize.define("profile", {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
