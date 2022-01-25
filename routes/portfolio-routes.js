@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
   const fundkeyCheck = async () => {
     let fundExist = await db.ClientPortfolio.findOne({
       where: {
-        ClientId: req.body.ClientId,
+        customer_id: req.body.customer_id,
         fundKey: req.body.fundKey,
       },
     });
