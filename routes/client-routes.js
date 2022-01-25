@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
-  const clientCheck = db.Client.findOne({
+  const clientCheck = await db.Client.findOne({
     where: {
       customer_id: req.body.customer_id,
     },
