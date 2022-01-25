@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
     let clientId;
     let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.body.customer_id },
-    }).then((data) => console.log(data));
+    }).then((data) => console.log(data.Client.id));
 
     clientId = clientIdSearch();
 
