@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
     email: req.body.email,
     birthdate: req.body.birthdate,
     age: req.body.age,
-    CustomerId: req.body.CustomerId,
+    ClientId: req.body.ClientId,
   }).then((postProfile) => res.send(postProfile));
 });
 
