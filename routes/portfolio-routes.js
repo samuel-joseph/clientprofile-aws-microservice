@@ -3,17 +3,50 @@ const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
-router.post("/", (req, res) => {
-  const fundCheck = db.ClientPortfolio.findAll({
-    where: {
-      ClientId: req.body.ClientId,
-    },
-  });
+// router.post("/", (req, res) => {
+//   const fundCheck = db.ClientPortfolio.findAll({
+//     where: {
+//       ClientId: req.body.ClientId,
+//     },
+//   });
 
-  db.ClientPortfolio.create({
-    fundKey: req.body.fundKey,
-    CustomerId: req.body.CustomerId,
-  }).then((userPost) => res.send(userPost));
+//   db.ClientPortfolio.create({
+//     fundKey: req.body.fundKey,
+//     CustomerId: req.body.CustomerId,
+//   }).then((userPost) => res.send(userPost));
+// });
+
+router.post("/", (req, res) => {
+  const fundkeyCheck = async () => {
+    let fundExist = await db.ClientPortfolio.findOne({
+      where: {
+        ClientId: req.body.ClientId,
+        fundKey: req.body.fundKey,
+      },
+    });
+
+    if (fundExist == null) {
+      db.ClientPortfolio.create({
+        fundKey: req.body.fundKey,
+        CustomerId: req.body.CustomerId,
+        quantity: 1,
+      }).then((userPost) => res.send(userPost));
+    } else {
+      db.ClientPortfolio.update(
+        {
+          quantity: fundExist.quantity + 1,
+        },
+        {
+          where: {
+            ClientId: req.body.ClientId,
+            fundKey: req.body.fundKey,
+          },
+        }
+      );
+    }
+  };
+
+  fundkeyCheck();
 });
 
 //check if fund exist

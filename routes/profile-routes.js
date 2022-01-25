@@ -5,7 +5,7 @@ const db = require("../models");
 router.get("/:id", (req, res) => {
   db.ClientProfile.findAll({
     where: {
-      CustomerId: req.params.id,
+      ClientId: req.params.id,
     },
     include: [db.Client],
   }).then((chosenProfile) => res.send(chosenProfile));
@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
   }).then((postProfile) => res.send(postProfile));
 });
 
-router.put("/:CustomerId", (req, res) => {
+router.put("/:ClientId", (req, res) => {
   db.ClientProfile.update(
     {
       firstName: req.body.firstName,
@@ -31,7 +31,7 @@ router.put("/:CustomerId", (req, res) => {
       birthdate: req.body.birthdate,
       age: req.body.age,
     },
-    { where: { CustomerId: req.params.CustomerId } }
+    { where: { ClientId: req.params.ClientId } }
   ).then((updated) => res.send(updated));
 });
 
