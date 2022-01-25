@@ -10,17 +10,34 @@ const db = require("../models");
 //     },
 //   });
 
-//   db.ClientPortfolio.create({
+//   db.ClientPortfolio.create({xw
 //     fundKey: req.body.fundKey,
 //     CustomerId: req.body.CustomerId,
 //   }).then((userPost) => res.send(userPost));
 // });
 
 router.post("/", (req, res) => {
+  // const fundkeyCheck = async () => {
+  //   let fundExist = await db.ClientPortfolio.findOne({
+  //     where: {
+  //       id: req.body.ClientId,
+  //       fundKey: req.body.fundKey,
+  //     },
+  //   });
+
   const fundkeyCheck = async () => {
+    let clientId;
+    let clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.body.customer_id },
+    }).then((data) => res.send(data.id));
+
+    clientId = clientIdSearch();
+
+    console.log(clientId);
+
     let fundExist = await db.ClientPortfolio.findOne({
       where: {
-        id: req.body.ClientId,
+        id: clientId,
         fundKey: req.body.fundKey,
       },
     });
