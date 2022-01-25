@@ -9,7 +9,7 @@ router.post("/", (req, res) => {
     });
 
     console.log("This is customerId ", customerId);
-    res.json(customerId);
+    return customerId;
   };
 
   console.log("What is ", clientCheck());
