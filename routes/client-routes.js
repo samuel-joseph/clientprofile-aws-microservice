@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
       customer_id: req.body.customer_id,
     },
   });
-  console.log(clientCheck);
+  console.log("What is ", clientCheck);
   if (clientCheck.length > 0) {
     res.send("Customer id already exist!");
   } else {
