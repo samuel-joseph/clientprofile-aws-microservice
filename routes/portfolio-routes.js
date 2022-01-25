@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
 
     clientId = clientIdSearch();
 
-    console.log(clientId);
+    console.log("This is client id ", clientId);
 
     let fundExist = await db.ClientPortfolio.findOne({
       where: {
