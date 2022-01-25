@@ -32,8 +32,6 @@ router.post("/", (req, res) => {
     });
     clientId = clientIdSearch.dataValues.id;
 
-    console.log("This is client id ", clientId);
-
     let fundExist = await db.ClientPortfolio.findOne({
       where: {
         id: clientId,
@@ -44,7 +42,7 @@ router.post("/", (req, res) => {
     if (fundExist == null) {
       db.ClientPortfolio.create({
         fundKey: req.body.fundKey,
-        ClientId: req.body.ClientId,
+        ClientId: clientId,
         quantity: 1,
       }).then((userPost) => res.send(userPost));
     } else {
@@ -54,7 +52,7 @@ router.post("/", (req, res) => {
         },
         {
           where: {
-            ClientId: req.body.ClientId,
+            ClientId: clientId,
             fundKey: req.body.fundKey,
           },
         }
