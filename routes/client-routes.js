@@ -3,13 +3,16 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
-  const clientCheck = await db.Client.findOne({
-    where: {
-      customer_id: req.body.customer_id,
-    },
-  });
+  const clientCheck = async () => {
+    return db.Client.findOne({
+      where: {
+        customer_id: req.body.customer_id,
+      },
+    });
+  };
+
   console.log("What is ", clientCheck);
-  if (clientCheck.length > 0) {
+  if (clientCheck) {
     res.send("Customer id already exist!");
   } else {
     db.Client.create({
