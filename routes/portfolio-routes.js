@@ -4,6 +4,12 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
+  const fundCheck = db.ClientPortfolio.findAll({
+    where: {
+      ClientId: req.body.ClientId,
+    },
+  });
+
   db.ClientPortfolio.create({
     fundKey: req.body.fundKey,
     CustomerId: req.body.CustomerId,

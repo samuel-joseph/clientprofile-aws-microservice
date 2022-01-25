@@ -3,9 +3,19 @@ const router = express.Router();
 const db = require("../models");
 
 router.post("/", (req, res) => {
-  db.Client.create({
-    customer_id: req.body.customer_id,
-  }).then((newClient) => res.send(newClient));
+  const clientCheck = db.Client.findOne({
+    where: {
+      customer_id: req.body.customer_id,
+    },
+  });
+
+  if (clientCheck.length > 0) {
+    res.send("Customer id already exist!");
+  } else {
+    db.Client.create({
+      customer_id: req.body.customer_id,
+    }).then((newClient) => res.send(newClient));
+  }
 });
 
 router.get("/", (req, res) => {
