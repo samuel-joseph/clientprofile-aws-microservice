@@ -2,11 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-export const getTransactions = async (req, res) => {
-  let transactions = await Transaction.findAll({});
-  res.json(transactions);
-};
-
 router.post("/", (req, res) => {
   export const clientCheck = async () => {
     let customerId = await db.Client.findOne({
