@@ -57,7 +57,7 @@ router.put("/:customer_id/:fundKey", (req, res) => {
         id: req.params.id,
       },
     });
-    console.log("Checking quantity ", client_portfolio.dataValues);
+    console.log("Checking quantity ", client_portfolio);
     let client_quantity = client_portfolio.dataValues.quantity;
 
     if (client_quantity == 1) {
