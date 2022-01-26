@@ -44,20 +44,22 @@ router.post("/", (req, res) => {
 
 // selling
 router.put("/:customer_id/:fundKey", (req, res) => {
-  console.log("AM I CALLED INSIDE PUT?");
   const getClientId = async () => {
-    console.log("AM I CALLED INSIDE ASYNC?");
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
+
+    console.log("client_portfolio next");
     const client_portfolio = await db.ClientPortfolio.findOne({
       where: {
         ClientId: clientId,
         id: req.params.id,
       },
     });
-    console.log("Checking quantity ", client_portfolio);
+
+    console.log("AM I CALLED INSIDE PUT?");
+    console.log("Checking quantity ", client_portfolio.dataValues.quantity);
     let client_quantity = client_portfolio.dataValues.quantity;
 
     if (client_quantity == 1) {
