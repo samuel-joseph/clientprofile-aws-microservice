@@ -75,10 +75,7 @@ router.get("/:customer_id", (req, res) => {
 
 router.get("/:customer_id/:id", (req, res) => {
   let clientId;
-  let clientIdSearch = await db.Client.findOne({
-    where: { customer_id: req.body.customer_id },
-  });
-  clientId = clientIdSearch.dataValues.id;
+  clientId = getClientId.dataValues.id;
 
   db.ClientPortfolio.findAll({
     where: {
