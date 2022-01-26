@@ -85,9 +85,6 @@ router.get("/:customer_id/:id", (req, res) => {
   }).then((data) => res.send(data));
 });
 
-//This is when user sells
-router.update("/:customer_id/:id", (req, res) => {});
-
 router.delete("/:customer_id/:id", (req, res) => {
   let clientId;
   clientId = getClientId.dataValues.id;
