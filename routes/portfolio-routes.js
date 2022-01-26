@@ -43,21 +43,36 @@ router.post("/", (req, res) => {
 });
 
 //check if fund exist
-router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
+router.put("/:customer_id/:fundKey", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
-
-    db.ClientPortfolio.findAll({
+    const client_portfolio = db.ClientPortfolio.findAll({
       where: {
-        fundKey: req.params.fundKey,
         ClientId: clientId,
+        id: req.params.id,
       },
-    }).then((portfolio) => {
-      res.send(portfolio);
     });
+    let client_quantity = client_portfolio.dataValues.quantity;
+    if (client_quantity == 1) {
+      db.ClientPortfolio.destroy({
+        where: { id: client_portfolio.dataValues.id },
+      }).then((data) => console.log(data, " REMOVED!"));
+    } else {
+      db.ClientPortfolio.update(
+        {
+          quantity: client_quantity - 1,
+        },
+        {
+          where: {
+            ClientId: clientId,
+            fundKey: req.params.fundKey,
+          },
+        }
+      );
+    }
   };
 
   getClientId();
