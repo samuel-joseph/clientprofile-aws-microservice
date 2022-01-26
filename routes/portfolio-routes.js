@@ -58,6 +58,7 @@ router.put("/:customer_id/:fundKey", (req, res) => {
       },
     });
     let client_quantity = client_portfolio.dataValues.quantity;
+    console.log(client_portfolio.dataValues);
     if (client_quantity == 1) {
       db.ClientPortfolio.destroy({
         where: { id: client_portfolio.dataValues.id },
