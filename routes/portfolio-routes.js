@@ -42,9 +42,11 @@ router.post("/", (req, res) => {
   fundkeyCheck();
 });
 
-//check if fund exist
+// selling
 router.put("/:customer_id/:fundKey", (req, res) => {
+  console.log("AM I CALLED INSIDE PUT?");
   const getClientId = async () => {
+    console.log("AM I CALLED INSIDE ASYNC?");
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
