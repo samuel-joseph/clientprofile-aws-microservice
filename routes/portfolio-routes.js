@@ -3,28 +3,13 @@ const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
-// router.post("/", (req, res) => {
-//   const fundCheck = db.ClientPortfolio.findAll({
-//     where: {
-//       ClientId: req.body.ClientId,
-//     },
-//   });
-
-//   db.ClientPortfolio.create({xw
-//     fundKey: req.body.fundKey,
-//     CustomerId: req.body.CustomerId,
-//   }).then((userPost) => res.send(userPost));
-// });
+const getClientId = async (customer_id) => {
+  await db.Client.findOne({
+    where: { customer_id: req.body.customer_id },
+  });
+};
 
 router.post("/", (req, res) => {
-  // const fundkeyCheck = async () => {
-  //   let fundExist = await db.ClientPortfolio.findOne({
-  //     where: {
-  //       id: req.body.ClientId,
-  //       fundKey: req.body.fundKey,
-  //     },
-  //   });
-
   const fundkeyCheck = async () => {
     let clientId;
     let clientIdSearch = await db.Client.findOne({
@@ -34,7 +19,7 @@ router.post("/", (req, res) => {
 
     let fundExist = await db.ClientPortfolio.findOne({
       where: {
-        id: clientId,
+        ClientId: clientId,
         fundKey: req.body.fundKey,
       },
     });
@@ -64,32 +49,54 @@ router.post("/", (req, res) => {
 });
 
 //check if fund exist
-router.get("/fundkey/:CustomerId/:fundKey", (req, res) => {
+router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
+  let clientId;
+  // let clientIdSearch = await db.Client.findOne({
+  //   where: { customer_id: req.body.customer_id },
+  // });
+  // clientId = clientIdSearch.dataValues.id;
+  clientId = getClientId.dataValues.id;
+
   db.ClientPortfolio.findAll({
     where: {
       fundKey: req.params.fundKey,
-      CustomerId: req.params.CustomerId,
+      ClientId: clientId,
     },
   }).then((portfolio) => {
     res.send(portfolio);
   });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:customer_id", (req, res) => {
+  let clientId;
+  let clientIdSearch = await db.Client.findOne({
+    where: { customer_id: req.body.customer_id },
+  });
+  clientId = clientIdSearch.dataValues.id;
+
   db.ClientPortfolio.findAll({
-    where: { CustomerId: req.params.id },
+    where: { ClientId: clientId },
     include: [db.Client],
   }).then((data) => res.send(data));
 });
 
-router.get("/:CustomerId/:id", (req, res) => {
+router.get("/:customer_id/:id", (req, res) => {
+  let clientId;
+  let clientIdSearch = await db.Client.findOne({
+    where: { customer_id: req.body.customer_id },
+  });
+  clientId = clientIdSearch.dataValues.id;
+
   db.ClientPortfolio.findAll({
     where: {
-      CustomerId: req.params.CustomerId,
+      ClientId: clientId,
       id: req.params.id,
     },
   }).then((data) => res.send(data));
 });
+
+//This is when user sells
+router.update("/:customer_id/:id", (req, res) => {});
 
 router.delete("/:CustomerId/:id", (req, res) => {
   db.ClientPortfolio.destroy({
