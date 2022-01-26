@@ -3,6 +3,9 @@ const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
+// this method is POST
+// if fundkey exists in users profile then increments quantity
+// else creates a new portfolio
 router.post("/", (req, res) => {
   const fundkeyCheck = async () => {
     let clientId;
@@ -42,7 +45,9 @@ router.post("/", (req, res) => {
   fundkeyCheck();
 });
 
-// selling
+// selling portfolio according to customer_id
+// decrements quantity in the process
+// deletes portfolio when quantity is about to turn 0
 router.put("/:customer_id/:fundKey", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
@@ -57,9 +62,6 @@ router.put("/:customer_id/:fundKey", (req, res) => {
         id: req.params.fundKey,
       },
     });
-
-    console.log("AM I CALLED INSIDE PUT?");
-    console.log("Checking quantity ", client_portfolio.dataValues.quantity);
     let client_quantity = client_portfolio.dataValues.quantity;
 
     if (client_quantity == 1) {
@@ -84,6 +86,7 @@ router.put("/:customer_id/:fundKey", (req, res) => {
   getClientId();
 });
 
+//return portfolio according to customer_id
 router.get("/:customer_id", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
