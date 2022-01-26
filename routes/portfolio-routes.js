@@ -5,7 +5,7 @@ const db = require("../models");
 
 const getClientId = async (customer_id) => {
   await db.Client.findOne({
-    where: { customer_id: req.body.customer_id },
+    where: { customer_id: customer_id },
   });
 };
 
