@@ -3,12 +3,6 @@ const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
-const getClientId = async (customer_id) => {
-  await db.Client.findOne({
-    where: { customer_id: customer_id },
-  });
-};
-
 router.post("/", (req, res) => {
   const fundkeyCheck = async () => {
     let clientId;
@@ -50,51 +44,76 @@ router.post("/", (req, res) => {
 
 //check if fund exist
 router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
-  let clientId;
-  console.log(getClientId(req.params.customer_id));
-  clientId = getClientId(req.params.customer_id).dataValues.id;
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
+    let clientId = clientIdSearch.dataValues.id;
 
-  db.ClientPortfolio.findAll({
-    where: {
-      fundKey: req.params.fundKey,
-      ClientId: clientId,
-    },
-  }).then((portfolio) => {
-    res.send(portfolio);
-  });
+    db.ClientPortfolio.findAll({
+      where: {
+        fundKey: req.params.fundKey,
+        ClientId: clientId,
+      },
+    }).then((portfolio) => {
+      res.send(portfolio);
+    });
+  };
+
+  getClientId();
 });
 
 router.get("/:customer_id", (req, res) => {
-  let clientId;
-  clientId = getClientId(req.params.customer_id).dataValues.id;
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
 
-  db.ClientPortfolio.findAll({
-    where: { ClientId: clientId },
-    include: [db.Client],
-  }).then((data) => res.send(data));
+    let clientId = clientIdSearch.dataValues.id;
+    db.ClientPortfolio.findAll({
+      where: { ClientId: clientId },
+      include: [db.Client],
+    }).then((data) => res.send(data));
+  };
+
+  getClientId();
 });
 
 router.get("/:customer_id/:id", (req, res) => {
-  let clientId;
-  clientId = getClientId(req.params.customer_id).dataValues.id;
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
+    let clientId = clientIdSearch.dataValues.id;
 
-  db.ClientPortfolio.findAll({
-    where: {
-      ClientId: clientId,
-      id: req.params.id,
-    },
-  }).then((data) => res.send(data));
+    db.ClientPortfolio.findAll({
+      where: {
+        ClientId: clientId,
+        id: req.params.id,
+      },
+    }).then((data) => res.send(data));
+  };
+
+  getClientId();
 });
 
 router.delete("/:customer_id/:id", (req, res) => {
-  let clientId;
-  clientId = getClientId(req.params.customer_id).dataValues.id;
-  db.ClientPortfolio.destroy({
-    where: {
-      ClientId: clientId,
-      id: req.params.id,
-    },
-  }).then((data) => console.log(`Portfolio id num ${req.params.id} removed!`));
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
+    let clientId = clientIdSearch.dataValues.id;
+    db.ClientPortfolio.destroy({
+      where: {
+        ClientId: clientId,
+        id: req.params.id,
+      },
+    }).then((data) =>
+      console.log(`Portfolio id num ${req.params.id} removed!`)
+    );
+  };
+
+  getClientId();
 });
 
 module.exports = router;
