@@ -3,9 +3,6 @@ const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
 
-// this method is POST
-// if fundkey exists in users profile then increments quantity
-// else creates a new portfolio
 router.post("/", (req, res) => {
   const fundkeyCheck = async () => {
     let clientId;

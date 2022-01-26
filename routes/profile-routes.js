@@ -2,20 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-// router.get("/:id", (req, res) => {
-//   db.ClientProfile.findAll({
-//     where: {
-//       ClientId: req.params.id,
-//     },
-//     include: [db.Client],
-//   }).then((chosenProfile) => res.send(chosenProfile));
-// });
-
-// const funCall = async () => {
-//   await db.Client.findOne({
-//     where: { customer_id: req.params.customer_id },
-//   });
-// };
+//Same as client-routes
+//Pass on customer_id and not the ID of this MODEL 
 
 router.get("/:customer_id", (req, res) => {
   const funCall = async () => {
@@ -35,10 +23,10 @@ router.get("/:customer_id", (req, res) => {
   funCall();
 });
 
-router.post("/", (req, res) => {
+router.post("/:customer_id", (req, res) => {
   const funCall = async () => {
     let clientIdSearch = await db.Client.findOne({
-      where: { customer_id: req.body.customer_id },
+      where: { customer_id: req.params.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
 
@@ -48,7 +36,7 @@ router.post("/", (req, res) => {
       email: req.body.email,
       birthdate: req.body.birthdate,
       age: req.body.age,
-      ClientId: clientId,
+      ClientId: clientId, //<====you don't pass this in the body it auto generates ClientId from the function clientIdSearch
     }).then((postProfile) => res.send(postProfile));
   };
 
