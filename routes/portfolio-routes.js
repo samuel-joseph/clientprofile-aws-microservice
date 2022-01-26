@@ -54,7 +54,7 @@ router.put("/:customer_id/:fundKey", (req, res) => {
     const client_portfolio = await db.ClientPortfolio.findOne({
       where: {
         ClientId: clientId,
-        id: req.params.id,
+        id: req.params.fundKey,
       },
     });
 
