@@ -11,23 +11,21 @@ const db = require("../models");
 //   }).then((chosenProfile) => res.send(chosenProfile));
 // });
 
-let clientIdSearch = await db.Client.findOne({
-  where: { customer_id: req.params.customer_id },
-});
+const clientIdSearch = async () => {
+  await db.Client.findOne({
+    where: { customer_id: req.params.customer_id },
+  });
+};
 
 router.get("/:customer_id", (req, res) => {
-  const funCall = async () => {
-    let clientId = clientIdSearch.dataValues.id;
+  let clientId = clientIdSearch.dataValues.id;
 
-    db.ClientProfile.findAll({
-      where: {
-        ClientId: clientId,
-      },
-      include: [db.Client],
-    }).then((chosenProfile) => res.send(chosenProfile));
-  };
-
-  funCall();
+  db.ClientProfile.findAll({
+    where: {
+      ClientId: clientId,
+    },
+    include: [db.Client],
+  }).then((chosenProfile) => res.send(chosenProfile));
 });
 
 router.post("/", (req, res) => {
