@@ -19,7 +19,7 @@ const db = require("../models");
 
 router.get("/:customer_id", (req, res) => {
   const funCall = async () => {
-    await db.Client.findOne({
+    let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
@@ -37,7 +37,7 @@ router.get("/:customer_id", (req, res) => {
 
 router.post("/", (req, res) => {
   const funCall = async () => {
-    await db.Client.findOne({
+    let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.body.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
@@ -57,7 +57,7 @@ router.post("/", (req, res) => {
 
 router.put("/:customer_id", (req, res) => {
   const funCall = async () => {
-    await db.Client.findOne({
+    let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
     let clientId = clientIdSearch.dataValues.id;
