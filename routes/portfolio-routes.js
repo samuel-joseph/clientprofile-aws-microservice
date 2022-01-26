@@ -51,7 +51,7 @@ router.post("/", (req, res) => {
 //check if fund exist
 router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
   let clientId;
-  clientId = getClientId.dataValues.id;
+  clientId = getClientId(req.params.customer_id).dataValues.id;
 
   db.ClientPortfolio.findAll({
     where: {
@@ -65,7 +65,7 @@ router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
 
 router.get("/:customer_id", (req, res) => {
   let clientId;
-  clientId = getClientId.dataValues.id;
+  clientId = getClientId(req.params.customer_id).dataValues.id;
 
   db.ClientPortfolio.findAll({
     where: { ClientId: clientId },
@@ -75,7 +75,7 @@ router.get("/:customer_id", (req, res) => {
 
 router.get("/:customer_id/:id", (req, res) => {
   let clientId;
-  clientId = getClientId.dataValues.id;
+  clientId = getClientId(req.params.customer_id).dataValues.id;
 
   db.ClientPortfolio.findAll({
     where: {
@@ -87,7 +87,7 @@ router.get("/:customer_id/:id", (req, res) => {
 
 router.delete("/:customer_id/:id", (req, res) => {
   let clientId;
-  clientId = getClientId.dataValues.id;
+  clientId = getClientId(req.params.customer_id).dataValues.id;
   db.ClientPortfolio.destroy({
     where: {
       ClientId: clientId,
