@@ -51,6 +51,7 @@ router.post("/", (req, res) => {
 //check if fund exist
 router.get("/fundkey/:customer_id/:fundKey", (req, res) => {
   let clientId;
+  console.log(getClientId(req.params.customer_id));
   clientId = getClientId(req.params.customer_id).dataValues.id;
 
   db.ClientPortfolio.findAll({
