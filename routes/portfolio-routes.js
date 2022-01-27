@@ -45,7 +45,7 @@ router.post("/", (req, res) => {
 // selling portfolio according to customer_id
 // decrements quantity in the process
 // deletes portfolio when quantity is about to turn 0
-router.put("/:customer_id/:fundKey", (req, res) => {
+router.delete("/:customer_id/:fundKey", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
@@ -136,23 +136,23 @@ router.get("/:customer_id/:id", (req, res) => {
   getClientId();
 });
 
-router.delete("/:customer_id/:id", (req, res) => {
-  const getClientId = async () => {
-    const clientIdSearch = await db.Client.findOne({
-      where: { customer_id: req.params.customer_id },
-    });
-    let clientId = clientIdSearch.dataValues.id;
-    db.ClientPortfolio.destroy({
-      where: {
-        ClientId: clientId,
-        id: req.params.id,
-      },
-    }).then((data) =>
-      console.log(`Portfolio id num ${req.params.id} removed!`)
-    );
-  };
+// router.delete("/:customer_id/:id", (req, res) => {
+//   const getClientId = async () => {
+//     const clientIdSearch = await db.Client.findOne({
+//       where: { customer_id: req.params.customer_id },
+//     });
+//     let clientId = clientIdSearch.dataValues.id;
+//     db.ClientPortfolio.destroy({
+//       where: {
+//         ClientId: clientId,
+//         id: req.params.id,
+//       },
+//     }).then((data) =>
+//       console.log(`Portfolio id num ${req.params.id} removed!`)
+//     );
+//   };
 
-  getClientId();
-});
+//   getClientId();
+// });
 
 module.exports = router;

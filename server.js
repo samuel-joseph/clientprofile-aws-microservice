@@ -3,6 +3,14 @@ const app = express();
 const db = require("./models");
 const PORT = process.env.PORT || 3000;
 
+import cors from "cors";
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
