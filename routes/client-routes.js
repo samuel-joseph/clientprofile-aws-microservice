@@ -2,14 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-
 //in POST/Create customer profile you need to pass:
-//         { 
+//         {
 //            "customer_id": n
 //         }
 //
 //  *notes has to be unique or will throw an error  message
-
 
 router.post("/", (req, res) => {
   const clientCheck = async () => {
@@ -29,14 +27,12 @@ router.post("/", (req, res) => {
   clientCheck();
 });
 
-
 //get ALL
 router.get("/", (req, res) => {
   db.Client.findAll({
     include: [db.ClientProfile, db.ClientPortfolio],
   }).then((allClient) => res.send(allClient));
 });
-
 
 //the :customer_id is the id of the user and NOT the id of customer_profile
 router.get("/:customer_id", (req, res) => {
@@ -45,7 +41,6 @@ router.get("/:customer_id", (req, res) => {
     include: [db.ClientProfile, db.ClientPortfolio],
   }).then((allClient) => res.send(allClient));
 });
-
 
 //same as here, supply the customer_id NOT the id of the MODEL customer
 router.delete("/:customer_id", (req, res) => {

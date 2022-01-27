@@ -100,6 +100,24 @@ router.get("/:customer_id", (req, res) => {
   getClientId();
 });
 
+router.get("/:customer_id/fundkey/:fundkeyId", (req, res) => {
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
+    let clientId = clientIdSearch.dataValues.id;
+
+    db.ClientPortfolio.findAll({
+      where: {
+        ClientId: clientId,
+        fundKey: req.params.fundkeyId,
+      },
+    }).then((data) => res.send(data));
+  };
+
+  getClientId();
+});
+
 router.get("/:customer_id/:id", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
