@@ -23,8 +23,12 @@ const portfolioRoutes = require("./routes/portfolio-routes");
 const res = require("express/lib/response");
 app.use("/portfolio", portfolioRoutes);
 
-db.sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Listening on: http://localhost:${PORT}`);
+db.sequelize
+  .sync({
+    force: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Listening on: http://localhost:${PORT}`);
+    });
   });
-});
