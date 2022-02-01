@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 
 //Same as client-routes
-//Pass on customer_id and not the ID of this MODEL 
+//Pass on customer_id and not the ID of this MODEL
 
 router.get("/:customer_id", (req, res) => {
   const funCall = async () => {
@@ -35,7 +35,6 @@ router.post("/:customer_id", (req, res) => {
       lastName: req.body.lastName,
       email: req.body.email,
       birthdate: req.body.birthdate,
-      age: req.body.age,
       ClientId: clientId, //<====you don't pass this in the body it auto generates ClientId from the function clientIdSearch
     }).then((postProfile) => res.send(postProfile));
   };
