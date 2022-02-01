@@ -25,7 +25,7 @@ app.use("/portfolio", portfolioRoutes);
 
 db.sequelize
   .sync({
-    force: true,
+    force: false,
   })
   .then(() => {
     app.listen(PORT, () => {
