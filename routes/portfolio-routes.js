@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
       db.ClientPortfolio.create({
         fundKey: req.body.fundKey,
         ClientId: clientId,
-        quantity: 1,
+        quantity: req.body.quantity,
       }).then((userPost) => res.send(userPost));
     } else {
       db.ClientPortfolio.update(
