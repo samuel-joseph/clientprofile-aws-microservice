@@ -48,6 +48,7 @@ router.post("/", (req, res) => {
 // decrements quantity in the process
 // deletes portfolio when quantity is about to turn 0
 router.delete("/:customer_id/:fundKey/:quantity_sell", (req, res) => {
+  console.log("Deleting process");
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
