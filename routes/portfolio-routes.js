@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
 // selling portfolio according to customer_id
 // decrements quantity in the process
 // deletes portfolio when quantity is about to turn 0
-router.delete("/:customer_id/:fundKey", (req, res) => {
+router.delete("/:customer_id/:fundKey/:quantity_sell", (req, res) => {
   const getClientId = async () => {
     const clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
@@ -70,7 +70,7 @@ router.delete("/:customer_id/:fundKey", (req, res) => {
     } else {
       db.ClientPortfolio.update(
         {
-          quantity: client_quantity - 1,
+          quantity: client_quantity - req.params.quantity_sell,
         },
         {
           where: {
