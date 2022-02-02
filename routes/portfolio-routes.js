@@ -67,7 +67,7 @@ router.delete("/:customer_id/:fundKey/:quantity_sell", (req, res) => {
     if (client_quantity == 1) {
       db.ClientPortfolio.destroy({
         where: { id: client_portfolio.dataValues.id },
-      }).then((data) => console.log(data, " REMOVED!"));
+      }).then((data) => res.send(data, " REMOVED!"));
     } else {
       db.ClientPortfolio.update(
         {
