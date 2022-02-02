@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
     } else {
       db.ClientPortfolio.update(
         {
-          quantity: fundExist.quantity + 1,
+          quantity: fundExist.quantity + req.body.quantity,
         },
         {
           where: {
@@ -35,7 +35,9 @@ router.post("/", (req, res) => {
             fundKey: req.body.fundKey,
           },
         }
-      );
+      ).then((data) => {
+        res.send(data);
+      });
     }
   };
 
@@ -76,7 +78,9 @@ router.delete("/:customer_id/:fundKey", (req, res) => {
             fundKey: req.params.fundKey,
           },
         }
-      );
+      ).then((data) => {
+        res.send(data);
+      });
     }
   };
 
