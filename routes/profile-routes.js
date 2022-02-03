@@ -43,10 +43,13 @@ router.post("/:customer_id", (req, res) => {
 });
 
 router.put("/:customer_id", (req, res) => {
+  console.log("This is the customer_id ==> ", req.params.customer_id);
+  console.log("This is the body ===> ", req.body);
   const funCall = async () => {
     let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
     });
+    console.log("This is the clientIdSearch===> ", clientIdSearch);
     let clientId = clientIdSearch.dataValues.id;
     db.ClientProfile.update(
       {
