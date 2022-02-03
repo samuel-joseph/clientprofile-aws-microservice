@@ -5,7 +5,13 @@ const db = require("../models");
 //Same as client-routes
 //Pass on customer_id and not the ID of this MODEL
 
-router.get("/:customer_id", (req, res) => {
+const secretCheck = (req, res, next) => {
+  req.query.secretKey === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv"
+    ? next()
+    : res.json({ error: "Access denied to gateway." });
+};
+
+router.get("/:customer_id", secretCheck, (req, res) => {
   const funCall = async () => {
     let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
@@ -23,7 +29,7 @@ router.get("/:customer_id", (req, res) => {
   funCall();
 });
 
-router.post("/:customer_id", (req, res) => {
+router.post("/:customer_id", secretCheck, (req, res) => {
   const funCall = async () => {
     let clientIdSearch = await db.Client.findOne({
       where: { customer_id: req.params.customer_id },
@@ -42,7 +48,7 @@ router.post("/:customer_id", (req, res) => {
   funCall();
 });
 
-router.put("/:customer_id", (req, res) => {
+router.put("/:customer_id", secretCheck, (req, res) => {
   console.log("This is the customer_id ==> ", req.params.customer_id);
   console.log("This is the body ===> ", req.body);
   const funCall = async () => {
