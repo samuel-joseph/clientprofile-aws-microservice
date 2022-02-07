@@ -1,24 +1,24 @@
-{
-  "development": {
-    "username": "postgres_sam",
-    "password": "pINANGAY-7",
-    "database": "aws_course_db",
-    "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "postgres_sam",
-    "password": "pINANGAY-7",
-    "database": "aws_course_db",
-    "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
-    "dialect": "postgres"
-  },
-  "production": {
-    "username": "postgres_sam",
-    "password": null,
-    "database": "database_production",
-    "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
-    "dialect": "postgres"
-  }
-}
+// {
+//   "development": {
+//     "username": "postgres_sam",
+//     "password": "pINANGAY-7",
+//     "database": "aws_course_db",
+//     "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
+//     "dialect": "postgres"
+//   },
+//   "test": {
+//     "username": "postgres_sam",
+//     "password": "pINANGAY-7",
+//     "database": "aws_course_db",
+//     "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
+//     "dialect": "postgres"
+//   },
+//   "production": {
+//     "username": "postgres_sam",
+//     "password": null,
+//     "database": "database_production",
+//     "host": "database-instance-1.ccfucmnuofby.us-east-1.rds.amazonaws.com",
+//     "dialect": "postgres"
+//   }
+// }
 
