@@ -53,55 +53,50 @@ router.post("/", secretCheck, (req, res) => {
 // selling portfolio according to customer_id
 // decrements quantity in the process
 // deletes portfolio when quantity is about to turn 0
-router.delete(
-  "/:customer_id/:fundKey/:quantity_sell",
-  secretCheck,
-  (req, res) => {
-    console.log(`customer_id is ${req.params.customer_id}`);
-    const getClientId = async () => {
-      const clientIdSearch = await db.Client.findOne({
-        where: { customer_id: req.params.customer_id },
+router.delete("/:customer_id/:fundKey/:quantity", secretCheck, (req, res) => {
+  console.log(`customer_id is ${req.params.customer_id}`);
+  const getClientId = async () => {
+    const clientIdSearch = await db.Client.findOne({
+      where: { customer_id: req.params.customer_id },
+    });
+    if (!clientIdSearch) {
+      return res.send({
+        error: `invalid customer_id`,
       });
-      if (!clientIdSearch) {
-        return res.send({
-          error: `invalid customer_id`,
-        });
-      }
-      let clientId = clientIdSearch.dataValues.id;
-      console.log(clientId);
-      console.log("client_portfolio next");
-      const client_portfolio = await db.ClientPortfolio.findOne({
-        where: {
-          ClientId: clientId,
-          fundKey: req.params.fundKey,
+    }
+    let clientId = clientIdSearch.dataValues.id;
+    console.log("client_portfolio next");
+    const client_portfolio = await db.ClientPortfolio.findOne({
+      where: {
+        ClientId: clientId,
+        fundKey: req.params.fundKey,
+      },
+    });
+    let client_quantity = client_portfolio.dataValues.quantity;
+
+    if (client_quantity == 1) {
+      db.ClientPortfolio.destroy({
+        where: { id: client_portfolio.dataValues.id },
+      }).then((data) => res.send(data, " REMOVED!"));
+    } else {
+      db.ClientPortfolio.update(
+        {
+          quantity: client_quantity - req.params.quantity,
         },
-      });
-      let client_quantity = client_portfolio.dataValues.quantity;
-
-      if (client_quantity == 1) {
-        db.ClientPortfolio.destroy({
-          where: { id: client_portfolio.dataValues.id },
-        }).then((data) => res.send(data, " REMOVED!"));
-      } else {
-        db.ClientPortfolio.update(
-          {
-            quantity: client_quantity - req.params.quantity_sell,
+        {
+          where: {
+            ClientId: clientId,
+            fundKey: req.params.fundKey,
           },
-          {
-            where: {
-              ClientId: clientId,
-              fundKey: req.params.fundKey,
-            },
-          }
-        ).then((data) => {
-          res.send(data);
-        });
-      }
-    };
+        }
+      ).then((data) => {
+        res.send(data);
+      });
+    }
+  };
 
-    getClientId();
-  }
-);
+  getClientId();
+});
 
 //return portfolio according to customer_id
 router.get("/:customer_id", secretCheck, (req, res) => {
