@@ -57,14 +57,14 @@ router.delete(
   "/:customer_id/:fundKey/:quantity_sell",
   secretCheck,
   (req, res) => {
-    console.log("Deleting process");
+    console.log(`customer_id is ${req.params.customer_id}`);
     const getClientId = async () => {
       const clientIdSearch = await db.Client.findOne({
         where: { customer_id: req.params.customer_id },
       });
       if (!clientIdSearch) {
         return res.send({
-          error: `invalid customer_id, customer_id is ${req.params.customer_id}`,
+          error: `invalid customer_id`,
         });
       }
       let clientId = clientIdSearch.dataValues.id;
