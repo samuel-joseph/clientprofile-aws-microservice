@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-
-//Same as client-routes
-//Pass on customer_id and not the ID of this MODEL
+require("dotenv").config();
 
 const secretCheck = (req, res, next) => {
-  req.query.secretKey === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv"
+  req.query.secretKey === process.env.secretKey
     ? next()
     : res.json({ error: "Access denied to gateway." });
 };

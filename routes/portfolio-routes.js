@@ -2,9 +2,10 @@ const express = require("express");
 const { port } = require("pg/lib/defaults");
 const router = express.Router();
 const db = require("../models");
+require("dotenv").config();
 
 const secretCheck = (req, res, next) => {
-  req.query.secretKey === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv"
+  req.query.secretKey === process.env.secretKey
     ? next()
     : res.json({ error: "Access denied to gateway." });
 };
